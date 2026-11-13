@@ -141,3 +141,23 @@ func (h *Handler) DeleteReview(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusNoContent)
 }
+
+func (h *Handler) AdminListReviews(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	reviews, err := h.Store.ListAllReviews(r.Context())
+	if err != nil {
+		http.Error(w, "ไม่สามารถโหลดรีวิวทั้งหมดได้", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]any{
+		"message": "โหลดรีวิวทั้งหมดสำเร็จ",
+		"reviews": reviews,
+		"total":   len(reviews),
+	})
+}

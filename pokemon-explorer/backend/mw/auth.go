@@ -59,3 +59,17 @@ func Auth(secret []byte) func(http.Handler) http.Handler {
 		})
 	}
 }
+
+// AdminOnly อนุญาตเฉพาะสมาชิกที่มี role เป็น admin
+func AdminOnly(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		user := WhoFrom(r.Context())
+
+		if user.Role != "admin" {
+			http.Error(w, "ไม่มีสิทธิ์เข้าถึงส่วนนี้", http.StatusForbidden)
+			return
+		}
+
+		next.ServeHTTP(w, r)
+	})
+}

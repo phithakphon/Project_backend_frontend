@@ -1,4 +1,4 @@
-//ยังไม่ Login: แสดง Login และ Sign Up  Login แล้ว: แสดงชื่อสมาชิกและปุ่ม Logout  กด Logout: ลบ Token และข้อมูลสมาชิก แล้วกลับไปหน้า Login
+
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu } from "lucide-react";
@@ -36,11 +36,15 @@ function Navbar() {
         </span>
       </Link>
 
-     <nav className="nav-links">
-       <Link to="/" className="active">Home</Link>
-       <a href="/#pokemon">Pokémon</a>
-       <Link to="/favorites">Favorites</Link>
-     </nav>
+      <nav className="nav-links">
+        <Link to="/" className="active">Home</Link>
+        <a href="/#pokemon">Pokémon</a>
+        <Link to="/favorites">Favorites</Link>
+
+        {isLoggedIn && member?.role === "admin" && (
+          <Link to="/admin">Admin</Link>
+        )}
+      </nav>
 
       <div className="nav-actions">
         {isLoggedIn ? (

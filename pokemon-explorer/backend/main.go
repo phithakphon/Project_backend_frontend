@@ -93,6 +93,48 @@ func main() {
 	// Reviews
 	mux.Handle("POST /api/reviews", requireAuth(http.HandlerFunc(h.AddReview)))
 	mux.Handle("/api/reviews/", requireAuth(http.HandlerFunc(h.DeleteReview)))
+	// Admin
+	mux.Handle(
+		"GET /api/admin/dashboard",
+		requireAuth(mw.AdminOnly(http.HandlerFunc(h.AdminDashboard))),
+	)
+
+	// Admin Pokémon Management
+	mux.Handle(
+		"POST /api/admin/pokemon",
+		requireAuth(mw.AdminOnly(http.HandlerFunc(h.CreatePokemon))),
+	)
+
+	mux.Handle(
+		"PUT /api/admin/pokemon/{id}",
+		requireAuth(mw.AdminOnly(http.HandlerFunc(h.UpdatePokemon))),
+	)
+
+	mux.Handle(
+		"DELETE /api/admin/pokemon/{id}",
+		requireAuth(mw.AdminOnly(http.HandlerFunc(h.DeletePokemon))),
+	)
+
+	// Admin Member Management
+	mux.Handle(
+		"GET /api/admin/members",
+		requireAuth(mw.AdminOnly(http.HandlerFunc(h.AdminListMembers))),
+	)
+
+	mux.Handle(
+		"PUT /api/admin/members/{id}",
+		requireAuth(mw.AdminOnly(http.HandlerFunc(h.AdminUpdateMemberRole))),
+	)
+
+	mux.Handle(
+		"DELETE /api/admin/members/{id}",
+		requireAuth(mw.AdminOnly(http.HandlerFunc(h.AdminDeleteMember))),
+	)
+	// Admin Review Management
+	mux.Handle(
+		"GET /api/admin/reviews",
+		requireAuth(mw.AdminOnly(http.HandlerFunc(h.AdminListReviews))),
+	)
 
 	// CORS
 	server := mw.CORS(mux)

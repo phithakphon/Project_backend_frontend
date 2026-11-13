@@ -1,6 +1,13 @@
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+
+import ReviewManagement from "./pages/admin/ReviewManagement";
+import AdminRoute from "./components/admin/AdminRoute";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import PokemonManagement from "./pages/admin/PokemonManagement";
+import MemberManagement from "./pages/admin/MemberManagement";
+
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -17,6 +24,25 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/pokemon/:id" element={<PokemonDetail />} />
+
+        <Route element={<AdminRoute />}>
+  <Route path="/admin" element={<AdminDashboard />} />
+
+  <Route
+    path="/admin/pokemon"
+    element={<PokemonManagement />}
+  />
+
+  <Route
+    path="/admin/members"
+    element={<MemberManagement />}
+  />
+
+  <Route
+    path="/admin/reviews"
+    element={<ReviewManagement />}
+  />
+</Route>
 
         <Route element={<ProtectedRoute />}>
           <Route path="/favorites" element={<Favorites />} />

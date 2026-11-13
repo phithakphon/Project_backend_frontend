@@ -13,6 +13,7 @@ type Review struct {
 	MemberID    int64     `json:"member_id"`
 	DisplayName string    `json:"display_name"`
 	PokemonID   int       `json:"pokemon_id"`
+	PokemonName string    `json:"pokemon_name"`
 	Content     string    `json:"content"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
@@ -128,4 +129,50 @@ func (s *Store) DeleteReview(
 	}
 
 	return nil
+}
+
+// ListAllReviews ดึงรีวิวทั้งหมดสำหรับ Admin
+func (s *Store) ListAllReviews(ctx context.Context) ([]Review, error) {
+	rows, err := s.Pool.Query(ctx, `
+		SELECT
+			r.id,
+			r.member_id,
+			m.display_name,
+			r.pokemon_id,
+			p.name,
+			r.content,
+			r.created_at,
+			r.updated_at
+		FROM reviews r
+		JOIN members m ON m.id = r.member_id
+		JOIN pokemon p ON p.id = r.pokemon_id
+		ORDER BY r.created_at DESC
+	`)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	reviews := make([]Review, 0)
+
+	for rows.Next() {
+		var review Review
+
+		if err := rows.Scan(
+			&review.ID,
+			&review.MemberID,
+			&review.DisplayName,
+			&review.PokemonID,
+			&review.PokemonName,
+			&review.Content,
+			&review.CreatedAt,
+			&review.UpdatedAt,
+		); err != nil {
+			return nil, err
+		}
+
+		reviews = append(reviews, review)
+	}
+
+	return reviews, rows.Err()
 }
