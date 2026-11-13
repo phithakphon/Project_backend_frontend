@@ -26,23 +26,23 @@ function App() {
         <Route path="/pokemon/:id" element={<PokemonDetail />} />
 
         <Route element={<AdminRoute />}>
-  <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin" element={<AdminDashboard />} />
 
-  <Route
-    path="/admin/pokemon"
-    element={<PokemonManagement />}
-  />
+          <Route
+            path="/admin/pokemon"
+            element={<PokemonManagement />}
+          />
 
-  <Route
-    path="/admin/members"
-    element={<MemberManagement />}
-  />
+          <Route
+            path="/admin/members"
+            element={<MemberManagement />}
+          />
 
-  <Route
-    path="/admin/reviews"
-    element={<ReviewManagement />}
-  />
-</Route>
+          <Route
+            path="/admin/reviews"
+            element={<ReviewManagement />}
+          />
+        </Route>
 
         <Route element={<ProtectedRoute />}>
           <Route path="/favorites" element={<Favorites />} />

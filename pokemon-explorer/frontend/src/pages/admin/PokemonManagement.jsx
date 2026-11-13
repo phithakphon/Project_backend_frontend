@@ -37,7 +37,7 @@ function PokemonManagement() {
     const [newPokemon, setNewPokemon] = useState(initialPokemon);
 
     const handleEdit = async (id) => {
-        
+
 
         try {
             const response = await fetch(`${API_URL}/api/pokemon/${id}`);
@@ -74,7 +74,7 @@ function PokemonManagement() {
             alert(err.message);
         }
     };
-   
+
     // ลบ Pokémon
     const handleDelete = async (id, name) => {
         const confirmed = window.confirm(
@@ -545,13 +545,13 @@ function PokemonManagement() {
                                         Edit Pokémon
                                     </button>
 
-<button
-    type="button"
-    className="pokemon-delete-button"
-    onClick={() => handleDelete(item.id, item.name)}
->
-    Delete Pokémon
-</button>
+                                    <button
+                                        type="button"
+                                        className="pokemon-delete-button"
+                                        onClick={() => handleDelete(item.id, item.name)}
+                                    >
+                                        Delete Pokémon
+                                    </button>
 
 
                                 </div>
