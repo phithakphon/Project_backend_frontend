@@ -3,7 +3,7 @@ package store
 import (
 	"context"
 )
-
+//ดึงข้อมูลสถิติภาพรวมจากฐานข้อมูล เพื่อนำไปแสดงบนหน้า Admin Dashboard
 type AdminStats struct {
 	TotalPokemon   int64 `json:"total_pokemon"`
 	TotalMembers   int64 `json:"total_members"`
