@@ -14,7 +14,7 @@ type updateMemberRoleRequest struct {
 	Role string `json:"role"`
 }
 
-// GET /api/admin/members
+// GET /api/admin/members ดึงรายชื่อสมาชิกทั้งหมด
 func (h *Handler) ListMembers(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
@@ -33,7 +33,7 @@ func (h *Handler) ListMembers(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// PUT /api/admin/members/{id}
+// PUT /api/admin/members/{id} 	เปลี่ยนสิทธิ์สมาชิกเป็น Admin หรือ Member
 func (h *Handler) UpdateMemberRole(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPut {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
@@ -60,7 +60,7 @@ func (h *Handler) UpdateMemberRole(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// ป้องกันแอดมินลดสิทธิ์บัญชีตัวเอง
+	// ป้องกันแอดมินลดสิทธิ์บัญชีตัวเอง 
 	if id == user.ID && req.Role != "admin" {
 		http.Error(w, "ไม่สามารถลดสิทธิ์บัญชีตัวเองได้", http.StatusForbidden)
 		return
@@ -83,7 +83,7 @@ func (h *Handler) UpdateMemberRole(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// DELETE /api/admin/members/{id}
+// DELETE /api/admin/members/{id} ลบบัญชีสมาชิก
 func (h *Handler) DeleteMember(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodDelete {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
