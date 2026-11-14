@@ -2592,3 +2592,255 @@ a {
     flex-direction: column;
   }
 }
+
+/* =========================================
+   MY PROFILE PAGE
+========================================= */
+
+.profile-page {
+  min-height: 100vh;
+  padding: 55px 20px 75px;
+  background:
+    radial-gradient(circle at 8% 10%, #fff0bd 0, transparent 25%),
+    radial-gradient(circle at 92% 85%, #ffe7c9 0, transparent 27%),
+    #fffdf7;
+}
+
+.profile-container {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.profile-header {
+  margin-bottom: 28px;
+}
+
+.profile-eyebrow {
+  color: #c18c1a;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.profile-header h1 {
+  margin-top: 8px;
+  color: #292b35;
+  font-size: 34px;
+  font-weight: 900;
+}
+
+.profile-header p {
+  margin-top: 6px;
+  color: #96939a;
+  font-size: 14px;
+}
+
+.profile-card {
+  padding: 32px;
+  margin-bottom: 40px;
+  background: #fff;
+  border: 1px solid #f0eadb;
+  border-radius: 23px;
+  box-shadow: 0 12px 35px #8c753010;
+}
+
+.profile-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 25px;
+}
+
+.profile-icon {
+  width: 47px;
+  height: 47px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: #fff1c8;
+  color: #c18c1a;
+}
+
+.profile-card-heading h2 {
+  color: #393943;
+  font-size: 19px;
+  font-weight: 900;
+}
+
+.profile-card-heading p {
+  margin-top: 3px;
+  color: #aaa5a0;
+  font-size: 12px;
+}
+
+.profile-info {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.profile-info p {
+  min-width: 0;
+  min-height: 85px;
+  padding: 17px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+  border: 1px solid #f0eee8;
+  border-radius: 13px;
+  background: #fffdf9;
+}
+
+.profile-info p svg {
+  color: #d5a32e;
+}
+
+.profile-info strong {
+  color: #99949a;
+  font-size: 11px;
+}
+
+.profile-info span {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  color: #393943;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.profile-password h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  color: #393943;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.profile-password h2 svg {
+  color: #d5a32e;
+}
+
+.profile-password > p {
+  margin-bottom: 24px;
+  color: #99949a;
+  font-size: 13px;
+}
+
+.profile-password form {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+
+.profile-password .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.profile-password .form-group label {
+  color: #55545b;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.profile-password .form-group input {
+  width: 100%;
+  height: 49px;
+  padding: 0 15px;
+  border: 1px solid #eae6dc;
+  border-radius: 11px;
+  outline: none;
+  background: #fffefa;
+  color: #292b35;
+  font-size: 13px;
+  transition: 0.2s;
+}
+
+.profile-password .form-group input:focus {
+  border-color: #edbd43;
+  box-shadow: 0 0 0 3px #f8e8b7;
+}
+
+.profile-password .form-group input::placeholder {
+  color: #b6b1a8;
+}
+
+.profile-password button.login-button {
+  width: 100%;
+  min-height: 48px;
+  border: none;
+  background: #f5c64c;
+  color: #49391a;
+  font-weight: 900;
+  transition: 0.2s;
+}
+
+.profile-password button.login-button:hover {
+  background: #eab331;
+  transform: translateY(-2px);
+}
+
+.profile-password button.login-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.form-error,
+.form-success {
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.form-error {
+  background: #fff0ed;
+  color: #d85b5b;
+}
+
+.form-success {
+  background: #eaf7eb;
+  color: #4d9659;
+}
+
+.profile-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  color: #99949a;
+  font-size: 13px;
+  font-weight: 900;
+  transition: 0.2s;
+}
+
+.profile-back:hover {
+  color: #d99d1d;
+  transform: translateX(-3px);
+}
+
+@media (max-width: 600px) {
+  .profile-page {
+    padding: 35px 15px 50px;
+  }
+
+  .profile-header h1 {
+    font-size: 28px;
+  }
+
+  .profile-card {
+    padding: 22px 17px;
+    border-radius: 18px;
+  }
+
+  .profile-info {
+    grid-template-columns: 1fr;
+  }
+}

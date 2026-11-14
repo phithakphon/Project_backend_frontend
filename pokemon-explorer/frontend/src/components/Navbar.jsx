@@ -37,15 +37,18 @@ function Navbar() {
       </Link>
 
       <nav className="nav-links">
-        <Link to="/" className="active">Home</Link>
-        <a href="/#pokemon">Pokémon</a>
-        <Link to="/favorites">Favorites</Link>
+  <Link to="/" className="active">Home</Link>
+  <a href="/#pokemon">Pokémon</a>
+  <Link to="/favorites">Favorites</Link>
 
-        {isLoggedIn && member?.role === "admin" && (
-          <Link to="/admin">Admin</Link>
-        )}
-      </nav>
+  {isLoggedIn && (
+    <Link to="/profile">My Profile</Link>
+  )}
 
+  {isLoggedIn && member?.role === "admin" && (
+    <Link to="/admin">Admin</Link>
+  )}
+</nav>
       <div className="nav-actions">
         {isLoggedIn ? (
           <>

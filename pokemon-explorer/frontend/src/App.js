@@ -1,7 +1,7 @@
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-
+import Profile from "./pages/Profile";
 import ReviewManagement from "./pages/admin/ReviewManagement";
 import AdminRoute from "./components/admin/AdminRoute";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -46,6 +46,7 @@ function App() {
 
         <Route element={<ProtectedRoute />}>
           <Route path="/favorites" element={<Favorites />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
       </Routes>
     </BrowserRouter>

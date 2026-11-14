@@ -84,6 +84,7 @@ func main() {
 	mux.HandleFunc("POST /api/register", h.Register)
 	mux.HandleFunc("POST /api/login", h.Login)
 	mux.Handle("GET /api/me", requireAuth(http.HandlerFunc(h.Me)))
+	mux.Handle("PUT /api/me/password", requireAuth(http.HandlerFunc(h.ChangePassword)))
 
 	// Favorites
 	mux.Handle("GET /api/favorites", requireAuth(http.HandlerFunc(h.ListFavorites)))

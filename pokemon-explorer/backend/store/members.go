@@ -91,3 +91,17 @@ func (s *Store) MemberByID(ctx context.Context, memberID int64) (Member, error) 
 
 	return m, err
 }
+func (s *Store) UpdateMemberPassword(
+	ctx context.Context,
+	memberID int64,
+	passwordHash string,
+) error {
+	_, err := s.Pool.Exec(ctx, `
+		UPDATE members
+		SET password_hash = $1,
+		    updated_at = NOW()
+		WHERE id = $2
+	`, passwordHash, memberID)
+
+	return err
+}

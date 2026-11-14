@@ -23,6 +23,11 @@ type loginReq struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }
+type changePasswordReq struct {
+	CurrentPassword string `json:"current_password"`
+	NewPassword     string `json:"new_password"`
+	ConfirmPassword string `json:"confirm_password"`
+}
 
 func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
@@ -152,5 +157,70 @@ func (h *Handler) Me(w http.ResponseWriter, r *http.Request) {
 		"member_id": member.ID,
 		"email":     member.Email,
 		"role":      member.Role,
+	})
+}
+func (h *Handler) ChangePassword(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPut {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	var req changePasswordReq
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "ข้อมูล JSON ไม่ถูกต้อง", http.StatusBadRequest)
+		return
+	}
+
+	if req.CurrentPassword == "" || req.NewPassword == "" || req.ConfirmPassword == "" {
+		http.Error(w, "กรุณากรอกข้อมูลให้ครบ", http.StatusBadRequest)
+		return
+	}
+
+	if len(req.NewPassword) < 8 {
+		http.Error(w, "รหัสผ่านใหม่ต้องมีอย่างน้อย 8 ตัวอักษร", http.StatusBadRequest)
+		return
+	}
+
+	if req.NewPassword != req.ConfirmPassword {
+		http.Error(w, "รหัสผ่านใหม่และการยืนยันไม่ตรงกัน", http.StatusBadRequest)
+		return
+	}
+
+	if req.CurrentPassword == req.NewPassword {
+		http.Error(w, "รหัสผ่านใหม่ต้องไม่ซ้ำกับรหัสผ่านเดิม", http.StatusBadRequest)
+		return
+	}
+
+	who := mw.WhoFrom(r.Context())
+
+	member, err := h.Store.MemberByEmail(r.Context(), who.Email)
+	if errors.Is(err, pgx.ErrNoRows) {
+		http.Error(w, "ไม่พบข้อมูลสมาชิก", http.StatusNotFound)
+		return
+	}
+	if err != nil {
+		http.Error(w, "ไม่สามารถตรวจสอบข้อมูลสมาชิกได้", http.StatusInternalServerError)
+		return
+	}
+
+	if auth.CheckPassword(req.CurrentPassword, member.PasswordHash) != nil {
+		http.Error(w, "รหัสผ่านปัจจุบันไม่ถูกต้อง", http.StatusUnauthorized)
+		return
+	}
+
+	passwordHash, err := auth.HashPassword(req.NewPassword)
+	if err != nil {
+		http.Error(w, "ไม่สามารถเข้ารหัสรหัสผ่านได้", http.StatusInternalServerError)
+		return
+	}
+
+	if err := h.Store.UpdateMemberPassword(r.Context(), who.ID, passwordHash); err != nil {
+		http.Error(w, "ไม่สามารถเปลี่ยนรหัสผ่านได้", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{
+		"message": "เปลี่ยนรหัสผ่านสำเร็จ",
 	})
 }
