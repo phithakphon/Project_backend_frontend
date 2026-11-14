@@ -1,6 +1,6 @@
 
 import { Navigate, Outlet } from "react-router-dom";
-
+//เป็น Component อนุญาตให้เฉพาะ Admin เข้าถึงหน้า Admin ได้
 function AdminRoute() {
   const token = localStorage.getItem("token");
 
