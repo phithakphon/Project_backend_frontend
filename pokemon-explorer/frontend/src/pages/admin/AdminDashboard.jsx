@@ -12,7 +12,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080";
-
+//เป็นหน้า Admin Dashboard ของเว็บไซต์ Pokémon Explorer ทำหน้าที่แสดงภาพรวมข้อมูลและเป็นศูนย์กลางสำหรับจัดการข้อมูลเว็บไซต์
 function AdminDashboard() {
     const navigate = useNavigate();
 
