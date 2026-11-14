@@ -5,7 +5,7 @@ import { ArrowLeft, Search } from "lucide-react";
 
 const API_URL =
     process.env.REACT_APP_API_URL || "http://localhost:8080";
-
+//เป็นหน้า Pokémon Management สำหรับให้ Admin จัดการข้อมูล Pokémon ภายในเว็บไซต์ สามารถเพิ่ม แก้ไข ลบ ค้นหา และแสดงข้อมูล Pokémon ได้
 function PokemonManagement() {
     const [pokemon, setPokemon] = useState([]);
     const [loading, setLoading] = useState(true);
