@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080";
-
+//เป็นหน้าแอดมินสำหรับตรวจสอบ ค้นหา และลบรีวิวที่สมาชิกเขียนเกี่ยวกับ Pokémon
 function ReviewManagement() {
   const navigate = useNavigate();
 
